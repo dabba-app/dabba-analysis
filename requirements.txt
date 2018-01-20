@@ -1,1 +1,4 @@
 ortools==6.6.4659
+numpy==1.13.1
+matplotlib==2.1.0
+pandas==0.20.3
