@@ -35,10 +35,14 @@ class CreateDistanceCallback(object):
 
   def Distance(self, from_node, to_node):
     return int(self.matrix[from_node][to_node])
+
+
+
 def main():
   # Create the data.
   locations = create_data_array()
   tsp_size = len(locations)
+  print(tsp_size)
   num_routes = 1      # The number of routes, which is 1 in the TSP.
   # Nodes are indexed from 0 to tsp_size - 1. The depot is the starting node of the route.
   depot = 0
@@ -47,8 +51,7 @@ def main():
     routing = pywrapcp.RoutingModel(tsp_size, num_routes, depot)
     search_parameters = pywrapcp.RoutingModel.DefaultSearchParameters()
 
-    # Callback to the distance function. The callback takes two
-    # arguments (the from and to node indices) and returns the distance between them.
+    # Callback to the distance function. The callback takes two arguments (the from and to node indices) and returns the distance between them.
     dist_between_locations = CreateDistanceCallback()
     dist_callback = dist_between_locations.Distance
     routing.SetArcCostEvaluatorOfAllVehicles(dist_callback)
@@ -63,18 +66,22 @@ def main():
       # Only one route here; otherwise iterate from 0 to routing.vehicles() - 1.
       route_number = 0
       node = routing.Start(route_number)
+      #print(node)
       start_node = node
       route = ''
 
       while not routing.IsEnd(node):
         route += str(node) + ' -> '
+        #print(routing.NextVar(node))
         node = assignment.Value(routing.NextVar(node))
+        #print(node)
       route += '0'
       print "Route:\n\n" + route
     else:
       print 'No solution found.'
   else:
     print 'Specify an instance greater than 0.'
+
 def create_data_array():
   locations = [[288, 149], [288, 129], [270, 133], [256, 141], [256, 157], [246, 157], [236, 169],
 [228, 169], [228, 161], [220, 169], [212, 169], [204, 169], [196, 169], [188, 169], [196, 161],

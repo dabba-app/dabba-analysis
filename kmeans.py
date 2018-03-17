@@ -7,9 +7,9 @@ plt.style.use('ggplot')
 
 # Importing the dataset
 data = pd.read_csv('xclara.csv')
-print("Input Data and Shape")
-print(data.shape)
-data.head()
+#print("Input Data and Shape")
+#print(data.shape)
+#data.head
 
 # Getting the values and plotting it
 f1 = data['V1'].values
@@ -27,6 +27,7 @@ k = 3
 C_x = np.random.randint(0, np.max(X)-20, size=k)
 # Y coordinates of random centroids
 C_y = np.random.randint(0, np.max(X)-20, size=k)
+
 C = np.array(list(zip(C_x, C_y)), dtype=np.float32)
 print("Initial Centroids")
 print(C)
@@ -46,6 +47,7 @@ while error != 0:
     # Assigning each value to its closest cluster
     for i in range(len(X)):
         distances = dist(X[i], C)
+        #returns index of the min element
         cluster = np.argmin(distances)
         clusters[i] = cluster
     # Storing the old centroid values
@@ -55,6 +57,7 @@ while error != 0:
         points = [X[j] for j in range(len(X)) if clusters[j] == i]
         C[i] = np.mean(points, axis=0)
     error = dist(C, C_old, None)
+
 
 colors = ['r', 'g', 'b', 'y', 'c', 'm']
 fig, ax = plt.subplots()
