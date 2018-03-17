@@ -16,6 +16,6 @@
     * `python tsp.py`
     * `python kmeans.py`
    
-* #####Files
+* ##### Files
    * preprocessing.py -> contains code for image filering so as to make it easy for the image recognition model.
    
