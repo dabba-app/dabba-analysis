@@ -38,6 +38,7 @@ class CreateDistanceCallback(object):
 
 
 def runTsp(locn):
+  link = ""
   # Create the data.
   #locations = create_data_array()
   locations = locn
@@ -72,17 +73,32 @@ def runTsp(locn):
       start_node = node
       route = ''
 
+      link = "https://www.google.com/maps/dir/?api=1&origin="
+      link += str(loc[0][0])
+      link += ","
+      link += str(loc[0][1])
+      link += "&destination="
+      link += str(loc[0][0])
+      link += ","
+      link += str(loc[0][1])
+      link += "&waypoints="
       while not routing.IsEnd(node):
         route += str(node) + ' -> '
+        link += str(loc[node][0])
+        link += ","
+        link += str(loc[node][1])
         #print(routing.NextVar(node))
         node = assignment.Value(routing.NextVar(node))
-        #print(node)
+        if not routing.IsEnd(node):
+          link += "|"
+      print(link)
       route += '0'
       print "Route:\n\n" + route
     else:
       print 'No solution found.'
   else:
     print 'Specify an instance greater than 0.'
+  return link
 
 # def create_data_array():
 #   locations = [[288, 149], [288, 129], [270, 133], [256, 141], [256, 157], [246, 157], [236, 169],
@@ -124,6 +140,6 @@ def runTsp(locn):
 # if __name__ == '__main__':
 #   main()
 
-#https://www.google.com/maps/dir/?api=1&origin=12.926884,77.685331&destination=12.944784,77.697648&waypoints=12.935142,77.689152|12.938697,77.698722
 
-https://www.google.com/maps/dir/?api=1&origin=12.926884,77.685331&destination=12.926884,77.685331&waypoints=12.935142,77.689152|12.938697,77.698722|12.944784,77.697648|12.935152,77.689162
+#https://www.google.com/maps/dir/?api=1&origin=12.926884,77.685331&destination=12.944784,77.697648&waypoints=12.935142,77.689152|12.938697,77.698722
+#https://www.google.com/maps/dir/?api=1&origin=12.926884,77.685331&destination=12.926884,77.685331&waypoints=12.935142,77.689152|12.938697,77.698722|12.944784,77.697648|12.935152,77.689162

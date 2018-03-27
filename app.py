@@ -5,6 +5,7 @@ from pprint import pprint
 import kmeans as km
 import numpy as np
 import tsp
+import send_asynch_message as sam
 
 # Replace with the correct URL
 url = "http://dabba.us-west-2.elasticbeanstalk.com/bins/"
@@ -32,8 +33,10 @@ if(myResponse.ok):
     clusters, C, X = km.kmeans(listOfFilledDustbins)
     for i in range(len(C)):
         points = np.array([X[j] for j in range(len(X)) if clusters[j] == i])
-        tsp.runTsp(points)
+        link = tsp.runTsp(points)
+        sam.send_message("piyush9620", link + " Follow this route to collect garbage.")
         #print(points)
+
 
 else:
   # If response code is not ok (200), print the resulting http error code with description
